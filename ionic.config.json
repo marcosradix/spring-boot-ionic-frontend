@@ -1,5 +1,7 @@
 {
   "name": "spring-boot-ionic-frontend",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }
