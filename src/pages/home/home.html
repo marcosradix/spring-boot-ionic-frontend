@@ -8,11 +8,40 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+  <h3>Sistema de pedidos</h3>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+  <img src="/assets/imgs/logo.png" alt="logo">
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <form>
+    <ion-item>
+      <ion-label>Email: </ion-label>
+      <ion-input type="email" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Senha: </ion-label>
+      <ion-input type="password" ></ion-input>
+    </ion-item>
+    <button ion-button type="submit" block>Entrar</button>
+  </form>
+  <button ion-button type="submit" block outline>Registrar</button>
+
+  <!-- <ion-slides (ionSlideDidChange)="slideChanged()">
+    <ion-slide>
+      <h1>Slide 1</h1>
+      <ion-img width="280" height="200" [src]="src"></ion-img>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 2</h1>
+      <ion-img width="280" height="200" [src]="src"></ion-img>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 3</h1>
+      <ion-img width="280" height="200" [src]="src"></ion-img>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 4</h1>
+      <button (click)="goToSlide()" ion-button secondary menuToggle>Toggle Menu</button>
+    </ion-slide>
+  </ion-slides> -->
+
 </ion-content>
