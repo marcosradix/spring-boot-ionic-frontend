@@ -1,11 +1,3 @@
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
-</ion-header>
 
 <ion-content padding>
   <h3>Sistema de pedidos</h3>
@@ -14,34 +6,14 @@
 
   <form>
     <ion-item>
-      <ion-label>Email: </ion-label>
-      <ion-input type="email" ></ion-input>
+      <ion-label>Usuário: </ion-label>
+      <ion-input type="email"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Senha: </ion-label>
-      <ion-input type="password" ></ion-input>
+      <ion-input type="password"></ion-input>
     </ion-item>
-    <button ion-button type="submit" block>Entrar</button>
+    <button ion-button block (click)="login()" >Entrar</button>
   </form>
   <button ion-button type="submit" block outline>Registrar</button>
-
-  <!-- <ion-slides (ionSlideDidChange)="slideChanged()">
-    <ion-slide>
-      <h1>Slide 1</h1>
-      <ion-img width="280" height="200" [src]="src"></ion-img>
-    </ion-slide>
-    <ion-slide>
-      <h1>Slide 2</h1>
-      <ion-img width="280" height="200" [src]="src"></ion-img>
-    </ion-slide>
-    <ion-slide>
-      <h1>Slide 3</h1>
-      <ion-img width="280" height="200" [src]="src"></ion-img>
-    </ion-slide>
-    <ion-slide>
-      <h1>Slide 4</h1>
-      <button (click)="goToSlide()" ion-button secondary menuToggle>Toggle Menu</button>
-    </ion-slide>
-  </ion-slides> -->
-
 </ion-content>

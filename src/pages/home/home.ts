@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { IonicPage } from 'ionic-angular/navigation/ionic-page';
 import { Slides } from 'ionic-angular';
+import { MenuController } from 'ionic-angular/components/app/menu-controller';
 
 @IonicPage()
 @Component({
@@ -9,22 +10,23 @@ import { Slides } from 'ionic-angular';
   templateUrl: 'home.html'
 })
 export class HomePage {
+
   @ViewChild(Slides) slides: Slides;
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public menu:MenuController) {
 
   }
-  src:string=`/assets/imgs/slide1.jpeg`;
 
-  goToSlide() {
-    this.slides.slideTo(1, 500);
+  ionViewWillEnter(){
+   this.menu.swipeEnable(false);
   }
-  slideChanged() {
-    let currentIndex = this.slides.getActiveIndex();
-    if(this.slides.isEnd){
-      this.src = `/assets/imgs/slide${1}.jpeg`;
-    }
-    this.src = `/assets/imgs/slide${currentIndex+1}.jpeg`;
-    console.log('Current index is', currentIndex);
+
+  ionViewCanLeave(){
+   this.menu.swipeEnable(true);
   }
+
+    login() {
+      this.navCtrl.setRoot("CategoriasPage");
+  }
+
 
 }
