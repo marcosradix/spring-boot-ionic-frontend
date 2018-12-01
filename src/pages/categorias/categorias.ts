@@ -22,12 +22,12 @@ export class CategoriasPage {
      public categoriaService: CategoriaService) {
   }
 
-  categorias$: CategoriaDTO[];
+  categorias: Array<CategoriaDTO> =[];
 
   ionViewDidLoad() {
     this.categoriaService.findAll().subscribe((resp) =>{
-      this.categorias$ = resp;
-      console.log("Categorias",this.categorias$);
+      this.categorias = resp;
+      console.log("Categorias",this.categorias);
     }, error => {
       console.log(error);
     });

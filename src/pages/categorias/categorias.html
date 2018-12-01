@@ -10,4 +10,11 @@
 
 <ion-content padding>
   <p>Página de categorias</p>
+  
+  <ul>
+    <li *ngFor="let cat of categorias">
+      {{ cat | json}}
+    </li>
+  </ul>
+
 </ion-content>
