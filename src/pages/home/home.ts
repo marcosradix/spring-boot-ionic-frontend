@@ -36,11 +36,9 @@ export class HomePage {
     login() {
       this.authService.authenticate(this.credentials)
       .subscribe(response => {
-        console.log("auth ",response.headers.get('Authorization'));
+        this.authService.successfulLogin(response.headers.get('Authorization'));
         this.navCtrl.setRoot("CategoriasPage");
-      });
-      console.log("saida ",this.credentials)
-     
+      },error =>{});
   }
 
 
