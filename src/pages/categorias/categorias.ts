@@ -1,3 +1,4 @@
+import { API_CONFIG } from './../../config/api.config';
 import { CategoriaService } from './../../service/domain/categoria.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -23,14 +24,12 @@ export class CategoriasPage {
   }
 
   categorias: Array<CategoriaDTO> =[];
-
+  bucketUrl: string = API_CONFIG.baseUrlBucket;
   ionViewDidLoad() {
     this.categoriaService.findAll().subscribe((resp) =>{
       this.categorias = resp;
       console.log("Categorias",this.categorias);
-    }, error => {
-      console.log(error);
-    });
+    }, error => { });
    
   }
 
