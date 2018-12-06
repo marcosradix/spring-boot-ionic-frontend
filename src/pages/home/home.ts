@@ -1,3 +1,4 @@
+import { CredenciaisDTO } from './../../model/credenciais.dto';
 import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { IonicPage } from 'ionic-angular/navigation/ionic-page';
@@ -10,6 +11,11 @@ import { MenuController } from 'ionic-angular/components/app/menu-controller';
   templateUrl: 'home.html'
 })
 export class HomePage {
+
+  credentials: CredenciaisDTO = {
+    email: "",
+    senha: ""
+  }
 
   @ViewChild(Slides) slides: Slides;
   constructor(public navCtrl: NavController, public menu:MenuController) {
@@ -25,6 +31,7 @@ export class HomePage {
   }
 
     login() {
+      console.log("saida ",this.credentials)
       this.navCtrl.setRoot("CategoriasPage");
   }
 

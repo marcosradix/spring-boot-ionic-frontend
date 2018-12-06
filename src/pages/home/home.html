@@ -7,11 +7,11 @@
   <form>
     <ion-item>
       <ion-label>Usuário: </ion-label>
-      <ion-input type="email"></ion-input>
+      <ion-input type="email" placeholder="email cadastrado" [(ngModel)]="credentials.email"  name="email"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Senha: </ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input type="password" placeholder="senha" [(ngModel)]="credentials.senha"  name="senha" ></ion-input>
     </ion-item>
     <button ion-button block (click)="login()" >Entrar</button>
   </form>
