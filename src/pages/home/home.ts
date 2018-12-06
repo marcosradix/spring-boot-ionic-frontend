@@ -1,3 +1,4 @@
+import { AuthService } from './../../service/auth.service';
 import { CredenciaisDTO } from './../../model/credenciais.dto';
 import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
@@ -18,7 +19,9 @@ export class HomePage {
   }
 
   @ViewChild(Slides) slides: Slides;
-  constructor(public navCtrl: NavController, public menu:MenuController) {
+  constructor(public navCtrl: NavController,
+              public menu:MenuController,
+              public authService: AuthService) {
 
   }
 
@@ -31,8 +34,13 @@ export class HomePage {
   }
 
     login() {
+      this.authService.authenticate(this.credentials)
+      .subscribe(response => {
+        console.log("auth ",response.headers.get('Authorization'));
+        this.navCtrl.setRoot("CategoriasPage");
+      });
       console.log("saida ",this.credentials)
-      this.navCtrl.setRoot("CategoriasPage");
+     
   }
 
 
