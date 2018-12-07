@@ -38,7 +38,9 @@ export class HomePage {
       .subscribe(response => {
         this.authService.successfulLogin(response.headers.get('Authorization'));
         this.navCtrl.setRoot("CategoriasPage");
-      },error =>{});
+      },error =>{
+        console.log(error);
+      });
   }
 
 
