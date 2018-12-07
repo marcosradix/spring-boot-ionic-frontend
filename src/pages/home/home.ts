@@ -25,9 +25,23 @@ export class HomePage {
 
   }
 
+  ionViewDidEnter(){
+    if(this.authService.storage.getLocalUser()){
+      this.authService.refreshToken()
+      .subscribe(response =>{
+        this.authService.successfulLogin(response.headers.get("Authorization"));
+        this.navCtrl.setRoot("CategoriasPage");
+      }, error => {});
+    }else{
+      console.log("Não existe login salvo");
+    }
+    
+  }
+
   ionViewWillEnter(){
    this.menu.swipeEnable(false);
   }
+
 
   ionViewCanLeave(){
    this.menu.swipeEnable(true);
