@@ -8,6 +8,9 @@ import { Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class ClienteService{
+  insert(value: any): any {
+    throw new Error("Method not implemented.");
+  }
     constructor(public http: HttpClient, public storage: StorageService){
 
     }
