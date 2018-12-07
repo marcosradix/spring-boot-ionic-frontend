@@ -1,3 +1,4 @@
+import { ClienteService } from './../service/domain/cliente.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -32,7 +33,8 @@ import { StorageService } from '../service/storage.service';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ErrorIteceptorProvider,
     AuthService,
-    StorageService
+    StorageService,
+    ClienteService
   ]
 })
 export class AppModule {}
