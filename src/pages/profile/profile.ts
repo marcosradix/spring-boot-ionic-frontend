@@ -3,7 +3,8 @@ import { ClienteService } from './../../service/domain/cliente.service';
 import { ClienteDTO } from './../../model/cliente.dto';
 import { StorageService } from './../../service/storage.service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { AuthService } from '../../service/auth.service';
 
 @IonicPage()
 @Component({
@@ -16,7 +17,9 @@ export class ProfilePage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public storage: StorageService,
-    public clienteService: ClienteService) {
+    public clienteService: ClienteService,
+    public alertCtrl: AlertController,
+    public authService: AuthService) {
   }
 
   ionViewDidLoad() {
@@ -39,11 +42,36 @@ export class ProfilePage {
 
 
   getImageIfExists() {
-  //  this.cliente.imageUrl = `${API_CONFIG.baseUrlBucket}/cp${this.cliente.id}.jpg`;
+   this.cliente.imageUrl = `${API_CONFIG.baseUrlBucket}/cp${this.cliente.id}.jpg`;
     this.clienteService.getImageFromBucket(this.cliente.id)
       .subscribe(response => {
         this.cliente.imageUrl = `${API_CONFIG.baseUrlBucket}/cp${this.cliente.id}.jpg`;
       }, error => { });
+  }
+
+  logout() {
+    let alert = this.alertCtrl.create({
+      title: 'Confirmar saída',
+      message: 'Você sairá do sistema comessa ação!',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('não sair');
+          }
+        },
+        {
+          text: 'Confirmar',
+          handler: () => {
+            console.log('Saindo.....');
+            this.authService.logout();
+            this.navCtrl.setRoot("HomePage");
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 }
