@@ -25,7 +25,8 @@ export class HomePage {
 
   }
 
-  ionViewDidEnter(){
+  
+  autoLogin(){
     if(this.authService.storage.getLocalUser()){
       this.authService.refreshToken()
       .subscribe(response =>{
@@ -39,6 +40,7 @@ export class HomePage {
   }
 
   ionViewWillEnter(){
+    this.autoLogin();
    this.menu.swipeEnable(false);
   }
 
