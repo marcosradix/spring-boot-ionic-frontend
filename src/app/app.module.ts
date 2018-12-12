@@ -38,9 +38,7 @@ import { EstadoService } from '../service/domain/estado.service';
     ErrorIteceptorProvider,
     AuthService,
     StorageService,
-    ClienteService,
-    CidadeService,
-    EstadoService
+    ClienteService
   ]
 })
 export class AppModule {}

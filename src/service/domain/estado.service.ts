@@ -1,6 +1,8 @@
 import { API_CONFIG } from './../../config/api.config';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
+import { EstadoDTO } from '../../model/estado.dto';
+import { Observable } from 'rxjs';
 
 
 @Injectable()
@@ -8,8 +10,8 @@ export class EstadoService{
 
   constructor(public http: HttpClient){}
     
-  findAll(): any {
-    this.http.get(`${API_CONFIG.baseUrl}/`);
+  findAll(): Observable<EstadoDTO[]> {
+    return this.http.get<EstadoDTO[]>(`${API_CONFIG.baseUrl}/estados`);
   }
 
 }
