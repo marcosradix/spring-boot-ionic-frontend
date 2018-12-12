@@ -46,7 +46,10 @@ export class ProfilePage {
     this.clienteService.getImageFromBucket(this.cliente.id)
       .subscribe(response => {
         this.cliente.imageUrl = `${API_CONFIG.baseUrlBucket}/cp${this.cliente.id}.jpg`;
-      }, error => { });
+      }, error => { 
+        console.log("Não existe imagem cadastrada" ,JSON.stringify(error));
+        this.cliente.imageUrl = '/assets/imgs/avatar-blank.png';
+      });
   }
 
   logout() {

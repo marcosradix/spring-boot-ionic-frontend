@@ -1,3 +1,4 @@
+import { FiledMessage } from './../model/filedMessage';
 import { StorageService } from './../service/storage.service';
 
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -31,6 +32,9 @@ export class ErrorIteceptor implements HttpInterceptor{
                 case 401:
                 this.handle401(errorObj);
                 break;
+                case 422:
+                this.handle422(errorObj);
+                break;
                 default:
                 this.handleDefaultError(errorObj);
                 break;
@@ -40,6 +44,28 @@ export class ErrorIteceptor implements HttpInterceptor{
 
             return Observable.throw(errorObj);
         })as any;
+    }
+
+    handle422(errorObj) {
+        let alertCtrl = this.alert.create({
+            title: `Erro ${errorObj.status} : ${errorObj.error}`,
+            message:this.listErrors(errorObj.listErrors),
+            enableBackdropDismiss:false,
+            buttons: [
+                {text: "Ok"}
+            ]
+        });
+        alertCtrl.present();
+    }
+
+
+    listErrors(messagers: FiledMessage[]): string {
+        let s : string ="";
+        for (let index = 0; index < messagers.length; index++) {
+            s = s + "<p><strong> Campo: </strong>" + messagers[index].fieldName + " <br><strong> Mensagem :</strong> "+messagers[index].message + "</p>";
+            
+        }
+        return s;
     }
     handleDefaultError(errorObj) {
         let alertCtrl = this.alert.create({
@@ -65,6 +91,7 @@ export class ErrorIteceptor implements HttpInterceptor{
     }
 
     handle403(){
+        console.log("entrou no erro 403")
         this.storage.setLocalUser(null);
     }
 }

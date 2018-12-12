@@ -8,12 +8,15 @@ import { Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class ClienteService{
-  insert(value: any): any {
-    throw new Error("Method not implemented.");
-  }
+
+
     constructor(public http: HttpClient, public storage: StorageService){
 
     }
+
+    insert(obj: ClienteDTO): any {
+        return this.http.post(`${API_CONFIG.baseUrl}/clientes`, obj, {observe:"response", responseType: "text"});
+      }
 
     findByEmail(email:string): Observable<ClienteDTO> {
         return this.http.get<ClienteDTO>(`${API_CONFIG.baseUrl}/clientes/email?email=${email}`);

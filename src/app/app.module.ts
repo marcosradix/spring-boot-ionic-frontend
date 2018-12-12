@@ -12,8 +12,6 @@ import { ErrorIteceptorProvider } from '../interceptors/error-interceptor';
 import { AuthService } from '../service/auth.service';
 import { StorageService } from '../service/storage.service';
 import { AuthInterceptorProvider } from '../interceptors/auth-inerceptor';
-import { CidadeService } from '../service/domain/cidade.service';
-import { EstadoService } from '../service/domain/estado.service';
 
 
 @NgModule({
