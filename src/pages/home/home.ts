@@ -59,5 +59,8 @@ export class HomePage {
       });
   }
 
+  signup(){
+    this.navCtrl.push('SignupPage');
+  }
 
 }
