@@ -1,3 +1,4 @@
+
 import { API_CONFIG } from './../../config/api.config';
 import { CategoriaService } from './../../service/domain/categoria.service';
 import { Component } from '@angular/core';
@@ -26,8 +27,9 @@ export class CategoriasPage {
    
   }
 
-  mostrarProdutos(){
-    this.navCtrl.push("ProdutosPage");
+  mostrarProdutos(categoria_id: string){
+    console.log("Id ", categoria_id);
+    this.navCtrl.push("ProdutosPage", {categoria_id: categoria_id});
   }
 
 }
