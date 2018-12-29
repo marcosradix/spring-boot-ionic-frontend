@@ -19,7 +19,7 @@
         {{item?.nome}}
       </ion-card-title>
       <p>
-        {{item?.preco | currency}}
+        {{item?.preco | currency :'BRL':true:'1.2-2'}}
       </p>
     </ion-card-content>
   </ion-card>
