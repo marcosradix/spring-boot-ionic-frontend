@@ -31,4 +31,5 @@ export class ProdutoService{
         let url = `${API_CONFIG.baseUrlBucket}/prod${id}.jpg`;
         return this.http.get(url, {responseType : "blob"});
     }
+
 }

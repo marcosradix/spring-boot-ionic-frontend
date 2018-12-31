@@ -1,3 +1,4 @@
+import { CartService } from './../service/domain/cart.service';
 import { ClienteService } from './../service/domain/cliente.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -40,7 +41,8 @@ import { ProdutoService } from '../service/domain/produto.service';
     AuthService,
     StorageService,
     ClienteService,
-    ProdutoService
+    ProdutoService,
+    CartService
   ]
 })
 export class AppModule {}

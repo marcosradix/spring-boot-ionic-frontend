@@ -3,6 +3,7 @@ import { ProdutoDTO } from './../../model/produto.dto';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { API_CONFIG } from '../../config/api.config';
+import { CartService } from '../../service/domain/cart.service';
 
 
 @IonicPage()
@@ -15,7 +16,8 @@ export class ProdutoDetailPage {
   item: ProdutoDTO;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public produtoService: ProdutoService) {
+              public produtoService: ProdutoService,
+              public cartService: CartService) {
   }
 
   getImageIfExists(){
@@ -35,5 +37,9 @@ export class ProdutoDetailPage {
     
   }
   
+  addToCart(produto: ProdutoDTO){
+        this.cartService.addProdutoCart(produto);
+        this.navCtrl.setRoot("CartPage");
+  }
 
 }
