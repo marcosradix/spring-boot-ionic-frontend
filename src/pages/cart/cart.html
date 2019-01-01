@@ -19,6 +19,7 @@
       <h2>{{item.produto.nome}}</h2>
       <p>{{item.produto.preco | currency :'BRL':true:'1.2-2'}}</p>
       <p>{{item.quantidade}}</p>
+      <p>Total : {{item.produto.preco * item.quantidade | currency :'BRL':true:'1.2-2' }}</p>
     </button>
   </ion-list>
 
