@@ -25,7 +25,9 @@ import { ProdutoService } from '../service/domain/produto.service';
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      backButtonText: ""
+    }),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
