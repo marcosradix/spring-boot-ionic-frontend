@@ -30,5 +30,5 @@
     <h3 *ngIf="total() <= 0"> O carrinho está vazio!</h3>
   </ion-list>
 <button ion-button block (click)="continuarComprando()" >Continuar comprando</button>
-<button ion-button block color="secondary" (click)="finalizarPedido()" >Finalizar pedido</button>
+<button ion-button block color="secondary" [disabled]="total() <= 0" (click)="finalizarPedido()" >Finalizar pedido</button>
 </ion-content>
