@@ -1,4 +1,5 @@
-import { ClienteDTO } from './../../model/cliente.dto';
+import { CartService } from './../../service/domain/cart.service';
+import { PedidoDTO } from './../../model/pedido.dto';
 import { ClienteService } from './../../service/domain/cliente.service';
 import { StorageService } from './../../service/storage.service';
 import { Component } from '@angular/core';
@@ -16,18 +17,34 @@ export class PickaddressPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public storage: StorageService,
-              public clienteService: ClienteService
+              public clienteService: ClienteService,
+              public cartService: CartService
               ) {
   }
 
   items: Array<EnderecoDTO> = [];
+  pedido : PedidoDTO;
 
   ionViewDidLoad() {
     let localUser = this.storage.getLocalUser();
     if (localUser && localUser.email) {
       this.clienteService.findByEmail(localUser.email)
         .subscribe(response => {
-          this.items = response["enderecos"]
+          this.items = response["enderecos"];
+
+          let cart = this.cartService.getCart();
+
+          this.pedido = {
+            cliente : {id: response["id"]},
+            enderecoDeEntrega : null,
+            pagamneto : null,
+            itens: cart.itens.map(x => {
+              return {
+                quantidade: x.quantidade,
+                produto: {id: x.produto.id} 
+              }
+            })
+          };
         }, error => {
           if(error.status == 403){
             this.navCtrl.setRoot("HomePage");
@@ -36,42 +53,12 @@ export class PickaddressPage {
     }else{
       this.navCtrl.setRoot("HomePage");
     }
+  
+  }
 
-
-    this.items = [
-      {
-        id: "1",
-        logradouro: "Rua quinze de novenbro",
-        numero: "300",
-        complemento: "Apto B",
-        bairro: "Santa Mônica",
-        cep: "48293822",
-        cidade : {
-          id: "1",
-          nome: "Uberlandia",
-          estado: {
-            id: "1",
-            nome: "Minas Gerais"
-          }
-        }
-      },
-      {
-        id: "2",
-        logradouro: "Rua dos Coelhos",
-        numero: "115",
-        complemento: "B",
-        bairro: "Maraponga",
-        cep: "60710705",
-        cidade : {
-          id: "2",
-          nome: "Fortaleza",
-          estado: {
-            id: "2",
-            nome: "Ceará"
-          }
-        }
-      }
-    ]
+  nextPage(item : EnderecoDTO){
+    this.pedido.enderecoDeEntrega = {id: item.id};
+    console.log(this.pedido);
   }
 
 }
