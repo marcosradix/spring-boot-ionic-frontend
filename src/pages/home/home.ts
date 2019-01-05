@@ -27,15 +27,25 @@ export class HomePage {
 
   
   autoLogin(){
-    if(this.authService.storage.getLocalUser()){
-      this.authService.refreshToken()
-      .subscribe(response =>{
-        this.authService.successfulLogin(response.headers.get("Authorization"));
-        this.navCtrl.setRoot("CategoriasPage");
-      }, error => {});
+    let user =  this.authService.storage.getCredentialsUser();
+    if(user != null){
+      this.credentials = user;
+      this.login()
+
+      if(this.authService.storage.getLocalUser()){
+        this.authService.refreshToken()
+        .subscribe(response =>{
+          this.authService.successfulLogin(response.headers.get("Authorization"));
+        }, error => {});
+      }else{
+        console.log("Não existe login salvo");
+      }
+      this.navCtrl.setRoot("CategoriasPage");
     }else{
-      console.log("Não existe login salvo");
+      console.log("Não existe credenciais de login salva");
     }
+
+   
     
   }
 
@@ -50,6 +60,7 @@ export class HomePage {
   }
 
     login() {
+      console.log("fazendo login...");
       this.authService.authenticate(this.credentials)
       .subscribe(response => {
         this.authService.successfulLogin(response.headers.get('Authorization'));
