@@ -29,11 +29,11 @@ export class PaymentPage {
 
 
   nextPage(){
-    this.pedido.pagamneto = this.formGroup.value;
-    if(this.pedido.pagamneto["@type"] == "pagamentoComBoleto"){
-      this.pedido.pagamneto.numeroDeParcelas = 1;
+    this.pedido.pagamento = this.formGroup.value;
+    if(this.pedido.pagamento["@type"] == "pagamentoComBoleto"){
+      this.pedido.pagamento.numeroDeParcelas = 1;
     }
-    console.log(this.pedido);
+    this.navCtrl.setRoot("OrderConfirmationPage", { pedido: this.pedido });
   }
 
 }

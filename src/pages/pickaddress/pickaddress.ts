@@ -37,7 +37,7 @@ export class PickaddressPage {
           this.pedido = {
             cliente : {id: response["id"]},
             enderecoDeEntrega : null,
-            pagamneto : null,
+            pagamento : null,
             itens: cart.itens.map(x => {
               return {
                 quantidade: x.quantidade,
@@ -57,8 +57,8 @@ export class PickaddressPage {
   }
 
   nextPage(item : EnderecoDTO){
-    let pedido = this.pedido.enderecoDeEntrega = {id: item.id};
-    this.navCtrl.push("PaymentPage", {pedido: pedido});
+    this.pedido.enderecoDeEntrega = {id: item.id};
+    this.navCtrl.push("PaymentPage", {pedido: this.pedido});
   }
 
 }
