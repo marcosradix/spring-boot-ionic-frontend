@@ -14,31 +14,41 @@ import { CategoriaDTO } from '../../model/categoria.dto';
 export class CategoriasPage {
 
   constructor(public navCtrl: NavController,
-     public navParams: NavParams,
-     public categoriaService: CategoriaService,
-     public loadingCtrl: LoadingController) {
+    public navParams: NavParams,
+    public categoriaService: CategoriaService,
+    public loadingCtrl: LoadingController) {
   }
 
-  categorias: Array<CategoriaDTO> =[];
+  categorias: Array<CategoriaDTO> = [];
   bucketUrl: string = API_CONFIG.baseUrlBucket;
   ionViewDidLoad() {
-    let loader = this.presentLoading();
-    this.categoriaService.findAll().subscribe((resp) =>{
-      this.categorias = resp;
-      loader.dismiss();
-    }, error => { loader.dismiss() });
-   
+    this.loadData();
   }
 
-  mostrarProdutos(categoria_id: string){
-    this.navCtrl.push("ProdutosPage", {categoria_id: categoria_id});
+  mostrarProdutos(categoria_id: string) {
+    this.navCtrl.push("ProdutosPage", { categoria_id: categoria_id });
   }
   presentLoading() {
     let loading = this.loadingCtrl.create({
       content: 'Aguarde...'
     });
-  
+
     loading.present();
     return loading;
+  }
+
+  loadData() {
+    let loader = this.presentLoading();
+    this.categoriaService.findAll().subscribe((resp) => {
+      this.categorias = resp;
+      loader.dismiss();
+    }, error => { loader.dismiss() });
+  }
+  doRefresh(refresher) {
+    this.categorias = [];
+    this.loadData();
+    setTimeout(() => {
+      refresher.complete();
+    }, 1000);
   }
 }
