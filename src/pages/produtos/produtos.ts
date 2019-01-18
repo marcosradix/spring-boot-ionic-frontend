@@ -26,6 +26,7 @@ export class ProdutosPage {
   categoria: CategoriaDTO;
   categorias: Observable<CategoriaDTO[]>;
   categoriaNome: string = "";
+  page : number = 0;
   ionViewDidLoad() {
     this.loadData();
   }
@@ -33,9 +34,12 @@ export class ProdutosPage {
   loadData() {
     let categoria_id = this.navParams.get("categoria_id");
     let loader = this.presentLoading();
-    this.produtoService.findByCategoria(categoria_id).subscribe(response => {
+    this.produtoService.findByCategoria(categoria_id, this.page, 10)
+    .subscribe(response => {
+      let start = this.items.length;
       this.categorias = this.categoriaService.findAll();
-      this.items = response['content'];
+      this.items = this.items.concat(response['content']);
+      let end = this.items.length -1;
       this.categorias.forEach(c => {
         c.forEach(ct => {
           if (ct.id == categoria_id) {
@@ -46,12 +50,12 @@ export class ProdutosPage {
       }).then(() => {
         loader.dismiss();
       });
-      this.loadImageUrls();
+      this.loadImageUrls(start, end);
     }, error => { console.log("Error ", error); loader.dismiss(); });
   }
 
-  loadImageUrls() {
-    for (let index = 0; index < this.items.length; index++) {
+  loadImageUrls(start : number, end: number) {
+    for (var index = start; index <= end; index++) {
       let item = this.items[index];
       this.produtoService.getSmallImageFromBucket(item.id).subscribe(response => {
         item.imageUrl = `${API_CONFIG.baseUrlBucket}/prod${item.id}-small.jpg`;
@@ -75,9 +79,19 @@ export class ProdutosPage {
   }
 
   doRefresh(refresher) {
+    this.page = 0;
+    this.items = [];
     this.loadData();
     setTimeout(() => {
       refresher.complete();
     }, 2000);
+  }
+
+  doInfinite(infiniteScroll) {
+    this.page++;
+    this.loadData();
+    setTimeout(() => {
+      infiniteScroll.complete();
+    }, 1000);
   }
 }
