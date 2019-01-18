@@ -12,6 +12,11 @@
 
 
 <ion-content padding>
+  
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+
     <div class="fab-container">
         <ion-fab top right edge>
           <button navPush="CartPage" ion-fab mini>

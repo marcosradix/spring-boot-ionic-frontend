@@ -25,26 +25,29 @@ export class ProdutosPage {
   items: Array<ProdutoDTO> = [];
   categoria: CategoriaDTO;
   categorias: Observable<CategoriaDTO[]>;
-  categoriaNome: string ="";
+  categoriaNome: string = "";
   ionViewDidLoad() {
+    this.loadData();
+  }
+
+  loadData() {
     let categoria_id = this.navParams.get("categoria_id");
     let loader = this.presentLoading();
     this.produtoService.findByCategoria(categoria_id).subscribe(response => {
       this.categorias = this.categoriaService.findAll();
       this.items = response['content'];
-      this.categorias.forEach(c =>{
-        c.forEach(ct =>{
-          if(ct.id == categoria_id){
+      this.categorias.forEach(c => {
+        c.forEach(ct => {
+          if (ct.id == categoria_id) {
             this.categoria = ct;
             this.categoriaNome = this.categoria.nome;
           }
         });
-      }).then(() =>{
+      }).then(() => {
         loader.dismiss();
       });
       this.loadImageUrls();
-    },
-      error => {console.log("Error ", error);  loader.dismiss();});
+    }, error => { console.log("Error ", error); loader.dismiss(); });
   }
 
   loadImageUrls() {
@@ -53,22 +56,28 @@ export class ProdutosPage {
       this.produtoService.getSmallImageFromBucket(item.id).subscribe(response => {
         item.imageUrl = `${API_CONFIG.baseUrlBucket}/prod${item.id}-small.jpg`;
       },
-        error => {});
+        error => { });
     }
 
   }
 
-  showDetail(produtoId: string){
-    this.navCtrl.push("ProdutoDetailPage", {produto_id:produtoId});
+  showDetail(produtoId: string) {
+    this.navCtrl.push("ProdutoDetailPage", { produto_id: produtoId });
   }
 
   presentLoading() {
     let loading = this.loadingCtrl.create({
       content: 'Aguarde...'
     });
-  
+
     loading.present();
     return loading;
   }
 
+  doRefresh(refresher) {
+    this.loadData();
+    setTimeout(() => {
+      refresher.complete();
+    }, 2000);
+  }
 }
