@@ -2,7 +2,7 @@
 import { API_CONFIG } from './../../config/api.config';
 import { CategoriaService } from './../../service/domain/categoria.service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { CategoriaDTO } from '../../model/categoria.dto';
 
 
@@ -15,20 +15,30 @@ export class CategoriasPage {
 
   constructor(public navCtrl: NavController,
      public navParams: NavParams,
-     public categoriaService: CategoriaService) {
+     public categoriaService: CategoriaService,
+     public loadingCtrl: LoadingController) {
   }
 
   categorias: Array<CategoriaDTO> =[];
   bucketUrl: string = API_CONFIG.baseUrlBucket;
   ionViewDidLoad() {
+    let loader = this.presentLoading();
     this.categoriaService.findAll().subscribe((resp) =>{
       this.categorias = resp;
-    }, error => { });
+      loader.dismiss();
+    }, error => { loader.dismiss() });
    
   }
 
   mostrarProdutos(categoria_id: string){
     this.navCtrl.push("ProdutosPage", {categoria_id: categoria_id});
   }
-
+  presentLoading() {
+    let loading = this.loadingCtrl.create({
+      content: 'Aguarde...'
+    });
+  
+    loading.present();
+    return loading;
+  }
 }

@@ -1,7 +1,7 @@
 import { API_CONFIG } from './../../config/api.config';
 import { ProdutoService } from './../../service/domain/produto.service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { ProdutoDTO } from '../../model/produto.dto';
 import { CategoriaService } from '../../service/domain/categoria.service';
 import { CategoriaDTO } from '../../model/categoria.dto';
@@ -18,7 +18,8 @@ export class ProdutosPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public produtoService: ProdutoService,
-    public categoriaService: CategoriaService) {
+    public categoriaService: CategoriaService,
+    public loadingCtrl: LoadingController) {
   }
 
   items: Array<ProdutoDTO> = [];
@@ -27,6 +28,7 @@ export class ProdutosPage {
   categoriaNome: string ="";
   ionViewDidLoad() {
     let categoria_id = this.navParams.get("categoria_id");
+    let loader = this.presentLoading();
     this.produtoService.findByCategoria(categoria_id).subscribe(response => {
       this.categorias = this.categoriaService.findAll();
       this.items = response['content'];
@@ -37,10 +39,12 @@ export class ProdutosPage {
             this.categoriaNome = this.categoria.nome;
           }
         });
+      }).then(() =>{
+        loader.dismiss();
       });
       this.loadImageUrls();
     },
-      error => console.log("Error ", error));
+      error => {console.log("Error ", error);  loader.dismiss();});
   }
 
   loadImageUrls() {
@@ -56,6 +60,15 @@ export class ProdutosPage {
 
   showDetail(produtoId: string){
     this.navCtrl.push("ProdutoDetailPage", {produto_id:produtoId});
+  }
+
+  presentLoading() {
+    let loading = this.loadingCtrl.create({
+      content: 'Aguarde...'
+    });
+  
+    loading.present();
+    return loading;
   }
 
 }
