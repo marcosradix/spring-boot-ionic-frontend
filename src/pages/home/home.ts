@@ -30,7 +30,9 @@ export class HomePage {
     let user =  this.authService.storage.getCredentialsUser();
     if(user != null){
       this.credentials = user;
-      this.login()
+      if(this.login() == 200){
+        this.navCtrl.setRoot("CategoriasPage");
+      }
 
       if(this.authService.storage.getLocalUser()){
         this.authService.refreshToken()
@@ -40,7 +42,7 @@ export class HomePage {
       }else{
         console.log("Não existe login salvo");
       }
-      this.navCtrl.setRoot("CategoriasPage");
+      
     }else{
       console.log("Não existe credenciais de login salva");
     }
@@ -59,17 +61,22 @@ export class HomePage {
    this.menu.swipeEnable(true);
   }
 
-    login() {
+    login(): number {
       console.log("fazendo login...");
+      let status = 0;
       this.authService.authenticate(this.credentials)
       .subscribe(response => {
         this.authService.successfulLogin(response.headers.get('Authorization'));
         if(response.status == 200){
+          status = response.status;
           this.navCtrl.setRoot("CategoriasPage");
         }
+      
       },error =>{
         console.log(error);
       });
+
+      return status;
   }
 
   signup(){
