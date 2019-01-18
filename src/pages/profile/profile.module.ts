@@ -9,8 +9,5 @@ import { Camera } from "@ionic-native/camera";
   imports: [
     IonicPageModule.forChild(ProfilePage),
   ],
-  providers: [
-    Camera
-  ]
 })
 export class ProfilePageModule {}

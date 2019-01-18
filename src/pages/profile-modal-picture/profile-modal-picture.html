@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+      <ion-title>Enviar Foto</ion-title>
+      <ion-buttons end>
+          <button ion-button icon-only (click)="closeModal()">
+              <ion-icon item-right name="ios-close-outline"></ion-icon>
+          </button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      Enviar imagem de perfil
+    </ion-card-header>
+    <ion-item *ngIf="picture">
+      <img [src]="picture" alt="Imagem de perfil">
+    </ion-item>
+    <ion-item>
+      <button ion-button block (click)="getCameraPicture()" [disabled]="cameraOn">Camera</button>
+      <button ion-button block outline (click)="sendPicture()" *ngIf="picture">Enviar imagem</button>
+      <button ion-button block outline (click)="cancel()" *ngIf="picture">Descartar imagem</button>
+    </ion-item>
+  </ion-card>
+</ion-content>

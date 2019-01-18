@@ -14,6 +14,7 @@ import { AuthService } from '../service/auth.service';
 import { StorageService } from '../service/storage.service';
 import { AuthInterceptorProvider } from '../interceptors/auth-inerceptor';
 import { ProdutoService } from '../service/domain/produto.service';
+import { ImageUtilsBlobService } from '../service/image-utils-blob';
 
 
 
@@ -44,7 +45,8 @@ import { ProdutoService } from '../service/domain/produto.service';
     StorageService,
     ClienteService,
     ProdutoService,
-    CartService
+    CartService,
+    ImageUtilsBlobService
   ]
 })
 export class AppModule {}
