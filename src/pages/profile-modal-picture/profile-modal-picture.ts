@@ -1,6 +1,6 @@
 import { ClienteService } from './../../service/domain/cliente.service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
 @IonicPage()
@@ -16,7 +16,8 @@ export class ProfileModalPicturePage {
               public navParams: NavParams,
               private camera: Camera,
               public clienteService: ClienteService,
-              public viewCtrl: ViewController) {
+              public viewCtrl: ViewController,
+              public loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
@@ -44,9 +45,11 @@ export class ProfileModalPicturePage {
   }
 
   sendPicture() {
+    let load = this.presentLoading();
     this.clienteService.uploadPicture(this.picture)
       .subscribe(() => {
         this.picture = null;
+        load.dismiss();
       }, error => {
         console.log( JSON.stringify(error) );
       });
@@ -57,8 +60,17 @@ export class ProfileModalPicturePage {
   }
 
   closeModal() {
-    console.log("fechando modal")
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss().then(() =>{
+      console.log("modal");
+    })
   }
 
+  presentLoading() {
+    let loading = this.loadingCtrl.create({
+      content: 'Aguarde...'
+    });
+
+    loading.present();
+    return loading;
+  }
 }

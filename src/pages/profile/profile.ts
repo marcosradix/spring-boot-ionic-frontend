@@ -1,4 +1,4 @@
-import { ProfileModalPicturePage } from './../profile-modal-picture/profile-modal-picture';
+
 import { API_CONFIG } from './../../config/api.config';
 import { ClienteService } from './../../service/domain/cliente.service';
 import { ClienteDTO } from './../../model/cliente.dto';

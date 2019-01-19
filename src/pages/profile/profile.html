@@ -9,12 +9,11 @@
 
 
 <ion-content padding>
-
   <ion-avatar>
-      <img (click)="presentProfileModal()" class="circle" [src]="cliente?.imageUrl || '/assets/imgs/avatar-blank.png'">
+    <img (click)="presentProfileModal()" class="circle" [src]="cliente?.imageUrl || '/assets/imgs/avatar-blank.png'">
   </ion-avatar>
-    <h2 text-center>{{cliente?.nome}}</h2>
+  <h2 text-center>{{cliente?.nome}}</h2>
   <p text-center>{{cliente?.email}}</p>
-  <button ion-button block (click)="logout()"  round outline>Sair</button>
+  <button ion-button block (click)="logout()" round outline>Sair</button>
 
 </ion-content>
